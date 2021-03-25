@@ -1,0 +1,18 @@
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8" />
+    <title>結果</title>
+</head>
+
+<body>
+    <% if(result_csvfile){ %>
+        <a href="<%= result_csvfile %>">処理結果CSV</a>
+        <% }else{ %>
+            <p>処理に失敗しました。</p>
+            <% } %>
+                <hr />
+                <p><a href="upload.html">戻る</a></p>
+</body>
+
+</html>
