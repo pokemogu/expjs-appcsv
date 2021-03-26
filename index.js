@@ -67,7 +67,7 @@ app.post('/upload', upload.fields([{ name: 'csvfile1', maxCount: 1 }, { name: 'c
     skip_empty_lines: true
   });
 
-  /*
+  let records_usage = [];
   for (const record in records2) {
     let record_usage = { name: '', usage: '', quantity: 0.0 };
     for (const key in record) {
@@ -77,7 +77,7 @@ app.post('/upload', upload.fields([{ name: 'csvfile1', maxCount: 1 }, { name: 'c
       else if (/^\s*利用料項目\s*$/.test(key)) {
         record_usage.usage = record[key];
       }
-      else if (/^\s*数量\s*$/.test(key)) {
+      else if (/^\s*数量\s*$/.test(key) && /^\d+(\.\d+)?$/.test(record[key])) {
         record_usage.quantity = parseFloat(record[key]);
       }
     }
@@ -85,8 +85,8 @@ app.post('/upload', upload.fields([{ name: 'csvfile1', maxCount: 1 }, { name: 'c
       records_usage.push(record_usage);
     }
   }
-  */
 
+  /*
   const records_usage = records2.map((record) => {
     const name_tmp = record[Object.keys(record).find(key => /^\s*利用者名\s*$/.test(key))];
     const usage_tmp = record[Object.keys(record).find(key => /^\s*利用料項目\s*$/.test(key))];
@@ -101,6 +101,7 @@ app.post('/upload', upload.fields([{ name: 'csvfile1', maxCount: 1 }, { name: 'c
       return { name: name_tmp, usage: usage_tmp, quantity: parseFloat(quantity_tmp) };
     }
   });
+  */
 
   if (!records_usage) {
     res.send('<html><head></head><body><h1>エラー</h1><p>利用項目が不正です。</p><hr/><p></p></body></html>');
