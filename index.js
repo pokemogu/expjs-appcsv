@@ -21,9 +21,6 @@ app.get('/', (request, response) => response.redirect('/upload'));
 app.get('/upload', (req, res) => res.sendFile(path.join(__dirname, 'public/upload.html')))
 
 app.post('/upload', upload.array('csvfile', 2), function (req, res) {
-  const dirpath = path.join(__dirname, 'uploads');
-  const outfilepath = path.join(dirpath, 'result.csv');
-
   const csv1 = req.files[0].buffer;
   const csv2 = req.files[1].buffer;
 
@@ -54,9 +51,11 @@ app.post('/upload', upload.array('csvfile', 2), function (req, res) {
   console.log(records);
 
   const data = stringify(records);
-  fs.writeFileSync(outfilepath, data);
-
-  res.render('result', { result_csvfile: '/uploads/result.csv' });
+  const resultcsv = new stream.PassThrough();
+  resultcsv.end(data);
+  res.set('Content-disposition', 'attachment; filename=result.csv');
+  res.set('Content-Type', 'text/csv');
+  resultcsv.pipe(res);
 })
 
 app.listen(port, function () {
