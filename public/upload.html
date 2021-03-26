@@ -11,8 +11,24 @@
 <body>
   <h1>CSVファイル処理</h1>
   <form action="upload" method="POST" enctype="multipart/form-data">
-    <input type="file" name="csvfile"><br />
-    <input type="file" name="csvfile"><br />
+    <p>
+      <label for="inputdata1">入力CSVファイル1(稼働時間)</label><br />
+      <input type="file" id="inputdata1" name="csvfile1"></input><br />
+      <label for="encoding1">文字コード</label>
+      <select id="encoding1" name="encoding1">
+        <option>Shift_JIS</option>
+        <option>UTF-8</option>
+      </select>
+    </p>
+    <p>
+      <label for="inputdata2">入力CSVファイル2(利用項目)</label><br />
+      <input type="file" id="inputdata2" name="csvfile2"></input><br />
+      <label for="encoding2">文字コード</label>
+      <select id="encoding2" name="encoding2">
+        <option>Shift_JIS</option>
+        <option>UTF-8</option>
+      </select>
+    </p>
     <button type="submit">送信</button>
   </form>
 </body>
